@@ -1,5 +1,3 @@
-import React from "react";
-
 const NewLayout = () => {
   return (
     <div className="layout-wrapper layout-content-navbar">
