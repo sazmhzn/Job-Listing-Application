@@ -12,7 +12,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { applyJob, JobData } from "@/services/jobsApi";
+import { applyJob } from "@/services/jobsApi";
+import { JobData } from "@/pages/Landing/JobDetail";
+
+interface JobApplication {
+  fullName: string; // Applicant's full name
+  email: string; // Applicant's email address
+  resume: File | undefined; // Resume file (optional)
+  coverLetter: string; // Cover letter (optional)
+  jobId: string; // ID of the job being applied to
+  jobTitle: string; // Title of the job being applied to
+}
+
+interface JobFormProps {
+  job: JobData | null; // Allow job to be null
+}
 
 const fileSizeLimit = 5 * 1024 * 1024; // 5MB
 
@@ -39,7 +53,7 @@ const JobFormSchema = z.object({
   jobTitle: z.string(),
 });
 
-const JobForm = ({ job }: JobData) => {
+const JobForm = ({ job }: JobFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof JobFormSchema>>({

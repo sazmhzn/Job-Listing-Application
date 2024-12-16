@@ -3,7 +3,7 @@ import axios from "axios";
 // API base URL from environment variables
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export interface JobData {
+export interface PostJobData {
   title: string;
   description: string;
   company: string;
@@ -30,7 +30,7 @@ const api = axios.create({
 });
 
 // POST request to submit job data
-export const createJob = async (jobData: JobData) => {
+export const createJob = async (jobData: PostJobData) => {
   try {
     const response = await axios.post(`${BASE_URL}jobs`, jobData, {
       headers: {

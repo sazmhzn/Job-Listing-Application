@@ -7,8 +7,9 @@ import Heading from "@/components/common/Heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { jobsData, topRecrutiers } from "@/lib/data";
-import { fetchJobs, JobData } from "@/services/jobsApi";
+import { fetchJobs } from "@/services/jobsApi";
 import { useEffect, useState } from "react";
+import { JobData } from "./JobDetail";
 
 const HeroSection = () => {
   return (

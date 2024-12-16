@@ -1,18 +1,30 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchJobById, JobData } from "@/services/jobsApi";
+import { fetchJobById } from "@/services/jobsApi";
 import { useFavorites } from "@/context/FavoritesContext";
 import { CaseLower, Heart } from "lucide-react";
 
 import JobForm from "../../components/JobForm";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 
+export interface JobData {
+  createdAt: string; // ISO date string
+  title: string; // Job title
+  description: string; // Job description
+  company: string; // Company name
+  location: string; // Job location
+  jobType: string; // Type of employment (e.g., full-time, part-time)
+  salaryRange: string; // Salary range
+  id: string; // Unique identifier for the job
+  logo: string; // URL of the company logo image
+}
+
 const JobDetail = () => {
   const { id } = useParams<{ id: string }>(); // Extract `jobId` from URL
 
   const [job, setJob] = useState<JobData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const { favorites, addFavorite, removeFavorite } = useFavorites(); // Use the addFavorite function from context
 
@@ -23,7 +35,7 @@ const JobDetail = () => {
         if (!id) return;
 
         const jobData = await fetchJobById(id);
-        setJob(jobData);
+        setJob(jobData as JobData); // Assert the type of jobData as JobData
       } catch (err) {
         console.error("Error fetching job details:", err);
         setError("Failed to load job details");
@@ -37,10 +49,12 @@ const JobDetail = () => {
 
   const isFavorite = favorites.some(
     (favorite) =>
-      favorite.title === job.title && favorite.company === job.company
+      favorite.title === job?.title && favorite.company === job.company
   );
 
   const toggleFavorite = () => {
+    if (!job) return; // Early return if job is null
+
     if (isFavorite) {
       // Remove from favorites
       removeFavorite(
@@ -67,24 +81,23 @@ const JobDetail = () => {
           <div className="flex md:flex-row flex-col items-center md:justify-between gap-4 w-full">
             <div className="flex gap-6">
               <img
-                src={job.logo}
+                src={job?.logo}
                 alt={` logo`}
                 className="aspect-square lg:h-24 h-16 bg-blue-200 rounded-sm p-1"
               />
               <div className="w-full space-y-3">
                 <h3 className="text-2xl font-semibold p-0 m-0 text-gray-800">
-                  {job.title} Position
+                  {job?.title} Position
                 </h3>
                 <div className="space-x-4">
-                  <span>{job.company}</span>
-                  <span>{job.location}</span>
-                  <span>{job.createdDate}</span>
-                  <span>{job.salaryRange}</span>
+                  <span>{job?.company}</span>
+                  <span>{job?.location}</span>
+                  <span>{job?.salaryRange}</span>
                 </div>
 
                 <div className="space-x-2">
                   <span className="px-2 py-1 rounded-full bg-green-100 text-green-600 font-normal">
-                    {job.jobType}
+                    {job?.jobType}
                   </span>
                 </div>
               </div>
