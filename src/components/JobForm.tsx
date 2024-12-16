@@ -15,15 +15,6 @@ import {
 import { applyJob } from "@/services/jobsApi";
 import { JobData } from "@/pages/Landing/JobDetail";
 
-interface JobApplication {
-  fullName: string; // Applicant's full name
-  email: string; // Applicant's email address
-  resume: File | undefined; // Resume file (optional)
-  coverLetter: string; // Cover letter (optional)
-  jobId: string; // ID of the job being applied to
-  jobTitle: string; // Title of the job being applied to
-}
-
 interface JobFormProps {
   job: JobData | null; // Allow job to be null
 }
@@ -56,6 +47,8 @@ const JobFormSchema = z.object({
 const JobForm = ({ job }: JobFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  if (!job) return;
+
   const form = useForm<z.infer<typeof JobFormSchema>>({
     resolver: zodResolver(JobFormSchema),
     defaultValues: {
@@ -75,6 +68,7 @@ const JobForm = ({ job }: JobFormProps) => {
         ...values,
         jobId: job.id,
         jobTitle: job.title,
+        resume: values.resume || new File([], "default_resume"), // Provide a default value
       };
       console.log(applicationData);
 
@@ -88,14 +82,6 @@ const JobForm = ({ job }: JobFormProps) => {
     } finally {
       setIsSubmitting(false);
     }
-    // try {
-    //   // const response = await createJob(values);
-    //   console.log("Job submitted successfully:", values);
-    //   alert("Job submitted successfully!");
-    // } catch (error) {
-    //   console.error("Error submitting job:", error);
-    //   alert("Failed to submit the job. Please try again.");
-    // }
   };
 
   return (
