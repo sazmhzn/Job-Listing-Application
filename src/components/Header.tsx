@@ -1,6 +1,5 @@
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
 
 import useResponsive from "@/hooks/useResponsive";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -18,7 +17,6 @@ import Favorites from "@/components/Header/Favorites";
 
 const DesktopMenu = memo(() => {
   const location = useLocation();
-
   return (
     <ul className="lg:flex pl-0 mb-0 items-center lg:gap-x-10 md:hidden">
       {menuItems.map((item) => {
@@ -42,7 +40,7 @@ const DesktopMenu = memo(() => {
   );
 });
 
-const MobileMenu = React.memo(() => (
+const MobileMenu = memo(() => (
   <Sheet>
     <SheetTrigger>Open</SheetTrigger>
     <SheetContent className="w-1/2">

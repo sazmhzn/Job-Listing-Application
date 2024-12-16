@@ -90,7 +90,7 @@ const About = () => {
                       key={applicationsjobs.id}
                       className="bg-white shadow-md rounded-lg p-4"
                     >
-                      <h3 className="text-xl font-semibold mb-2">
+                      <h3 className="text-xl text-blue-600 font-semibold mb-2">
                         {applicationsjobs.jobTitle}
                       </h3>
                       <p className="text-gray-600 mb-2">
