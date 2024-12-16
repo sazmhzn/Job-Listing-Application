@@ -36,7 +36,7 @@ export const useGenericToast = () => {
     toast({
       title,
       description,
-      variant: variantMap[variant], // Use "default" as fallback
+      variant: variantMap[variant],
       action: action ? (
         <ToastAction
           altText={action.label || "Action"}
