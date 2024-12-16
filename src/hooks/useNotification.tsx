@@ -18,25 +18,12 @@ export const useGenericToast = () => {
 
   const showToast = (options: ToastOptions) => {
     // Default values if not provided
-    const {
-      title = "Notification",
-      description = "",
-      variant = "default",
-      action,
-    } = options;
-
-    // Map variant to toast style
-    const variantMap = {
-      default: "default",
-      destructive: "destructive",
-      success: "success",
-      warning: "warning",
-    };
+    const { title = "Notification", description = "", action } = options;
 
     toast({
       title,
       description,
-      variant: variantMap[variant],
+      variant: "default",
       action: action ? (
         <ToastAction
           altText={action.label || "Action"}
@@ -50,23 +37,28 @@ export const useGenericToast = () => {
 
   // Predefined toast helpers
   const showSuccessToast = (message: string, description?: string) => {
-    showToast({
+    // showToast({
+    //   title: message,
+    //   description,
+    //   variant: "success",
+    // });
+    toast({
       title: message,
-      description,
+      description: description,
       variant: "success",
     });
   };
 
   const showErrorToast = (message: string, description?: string) => {
-    showToast({
+    toast({
       title: message,
-      description,
+      description: description,
       variant: "destructive",
     });
   };
 
   const showWarningToast = (message: string, description?: string) => {
-    showToast({
+    toast({
       title: message,
       description,
       variant: "warning",
