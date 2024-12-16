@@ -3,8 +3,6 @@ import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 import { useFavorites } from "@/context/FavoritesContext";
-import { useToast } from "@/hooks/use-toast";
-import { useGenericToast } from "@/hooks/useNotification";
 
 interface JobCategoryCardProps {
   title: string;
@@ -188,9 +186,19 @@ export const TopRecruiter = ({
   );
 };
 
-export const JobCard = ({ job }) => {
-  const { toast } = useToast();
+interface JobCardProps {
+  job: {
+    id: string;
+    title: string;
+    company: string;
+    jobType?: string;
+    createdAt: string;
+    description: string;
+    tags?: string[];
+  };
+}
 
+export const JobCard = ({ job }: JobCardProps) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   const isFavorite = favorites.some(
@@ -207,22 +215,11 @@ export const JobCard = ({ job }) => {
             favorite.title === job.title && favorite.company === job.company
         )
       );
-      showErrorToast(
-        "Removed From Favorites",
-        `${job.title} has been added to your favorites`
-      );
     } else {
       // Add to favorites
       addFavorite({ id: job.id, title: job.title, company: job.company });
-      showSuccessToast(
-        "Added to Favorites",
-        `${job.title} has been added to your favorites`
-      );
     }
   };
-
-  const { showSuccessToast, showErrorToast, showWarningToast, showToast } =
-    useGenericToast();
 
   return (
     <div className="w-full space-y-4 max-w-sm p-6 bg-[#f8faff] rounded-lg border border-[#e0e6f7] flex flex-col gap-2">

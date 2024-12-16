@@ -26,17 +26,12 @@ const Jobs = () => {
     getJobs();
   }, []);
 
-  const saveToFavorites = () => {
-    if (job) {
-      addFavorite({ title: job.title, company: job.company });
-      alert("Job added to favorites!");
-    }
-  };
-
   // Calculate current jobs for the current page
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = Array.isArray(jobs) ? jobs.slice(indexOfFirstJob, indexOfLastJob) : [];
+  const currentJobs = Array.isArray(jobs)
+    ? jobs.slice(indexOfFirstJob, indexOfLastJob)
+    : [];
 
   // Handle pagination
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
@@ -55,11 +50,10 @@ const Jobs = () => {
 
   return (
     <>
-      {/* Header Section */}
       <section className="p-4 bg-white">
         <div className="flex min-h-[20vh] items-center rounded-lg justify-between max-w-7xl px-0 py-10 mx-auto">
           <div className="mx-auto w-full bg-blue-50 p-4 flex gap-8 md:items-center justify-between">
-            <div className="md:w-2/3 mx-auto space-y-4">
+            <div className="md:w-2/3 w-full mx-auto space-y-4">
               <div className="relative flex flex-col items-center justify-center">
                 <h1 className="text-[#05264e] text-center md:text-5xl text-4xl md:font-extrabold font-semibold m-0 p-0">
                   <div className="w-[200px] h-[25px] absolute left-[135px] top-[30px] opacity-10 bg-[#3c65f5]" />
@@ -68,7 +62,7 @@ const Jobs = () => {
                   </span>
                   Available Now
                 </h1>
-                <div className="text-[#4f5e64] text-center w-[70ch] md:text-md text-sm font-normal font-['Inter'] leading-normal">
+                <div className="text-[#4f5e64] text-center md:w-[70ch] md:text-md text-sm font-normal font-['Inter'] leading-normal">
                   Discover exciting job opportunities curated for you.
                 </div>
               </div>
@@ -88,10 +82,12 @@ const Jobs = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {Array.isArray(currentJobs) && currentJobs.length > 0 ? (
-                  currentJobs.map((job) => <JobCard key={job.id} job={job} />)
+                {currentJobs && currentJobs.length > 0 ? (
+                  currentJobs.map((job) => <JobCard job={job} />)
                 ) : (
-                  <p className="text-center text-gray-500">No jobs available.</p>
+                  <p className="text-center text-gray-500">
+                    No jobs available.
+                  </p>
                 )}
               </div>
 

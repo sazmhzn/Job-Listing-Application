@@ -1,6 +1,5 @@
-import { JobCard } from "@/components/common/CustomCard";
 import CustomSearch from "@/components/common/CustomSearch";
-import { fetchAppliedJobs } from "@/services/jobsApi";
+import { fetchAppliedJobs, JobApplication } from "@/services/jobsApi";
 import { useEffect, useState } from "react";
 
 const About = () => {

@@ -22,25 +22,28 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
 
 // Provider component
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  const { showSuccessToast, showErrorToast, showWarningToast, showToast } =
-    useGenericToast();
+  const { showSuccessToast, showErrorToast } = useGenericToast();
 
   const [favorites, setFavorites] = useState<FavoriteJob[]>([]);
 
   const addFavorite = (job: FavoriteJob) => {
     setFavorites((prev) => [...prev, job]);
+    showSuccessToast(
+      "Added from Favorites",
+      `${job?.title} has been added from your favorites.`
+    );
   };
 
   const removeFavorite = (index: number) => {
-    setFavorites((prev) =>
-      prev.filter((item, i) => {
-        i !== index;
-        showErrorToast(
-          "Removed From Favorites",
-          `${item.title} has been added to your favorites`
-        );
-      })
-    );
+    setFavorites((prev) => {
+      const removedJob = prev[index];
+      const updatedFavorites = prev.filter((_, i) => i !== index);
+      showErrorToast(
+        "Removed from Favorites",
+        `${removedJob?.title} has been removed from your favorites.`
+      );
+      return updatedFavorites;
+    });
   };
 
   return (

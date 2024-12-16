@@ -1,4 +1,3 @@
-import Footer from "@/components/candidate/Footer";
 import {
   JobCard,
   JobCategoryCard,
@@ -7,7 +6,7 @@ import {
 import Heading from "@/components/common/Heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { jobOfTheDay, jobsData, topRecrutiers } from "@/lib/data";
+import { jobsData, topRecrutiers } from "@/lib/data";
 import { fetchJobs } from "@/services/jobsApi";
 import { useEffect, useState } from "react";
 
@@ -265,8 +264,8 @@ const NewHome = () => {
               </div>
             </div>
 
-            <div className="md:inline-block hidden ">
-              <span className="text-[#526489] md:text-lg text-sm font-medium font-['Inter'] leading-[23px]">
+            <div className="lg:inline-block hidden ">
+              <span className="text-[#526489] lg:text-lg text-sm font-medium font-['Inter'] leading-[23px]">
                 Let’s Work Together & Explore Opportunities
               </span>
             </div>
@@ -496,7 +495,7 @@ const NewHome = () => {
       <section className="bg-white px-4">
         <div className="flex  flex-col items-center justify-between max-w-7xl px-0 py-8 mx-auto">
           <div className="flex w-full  flex-col items-center justify-between ">
-            <div className=" md:p-11 p-4 rounded-2xl flex bg-[#3c65f5] md:gap-[61.3px] items-start">
+            <div className=" md:p-11 p-4 rounded-2xl flex lg:flex-row flex-col bg-[#3c65f5] gap-[3px] lg:gap-[61.3px] items-center lg:items-start">
               {/* Main Image */}
               <img
                 className="w-1/3 md:inline hidden aspect-square"
@@ -530,7 +529,7 @@ const NewHome = () => {
 
               {/* Secondary Image */}
               <img
-                className="w-1/3 md:inline hidden aspect-square"
+                className="w-1/3 lg:inline hidden aspect-square"
                 src="/images/newsletter-image-right.png"
                 alt="Secondary Image"
               />

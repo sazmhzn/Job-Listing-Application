@@ -9,14 +9,13 @@ export const menuItems = [
   {
     label: "Find Jobs",
     link: "/jobs",
-    icon: Home,
+    icon: Briefcase, // Changed from Home to more appropriate Briefcase icon
   },
   {
     label: "Applied Jobs",
     link: "/applied",
-    icon: Home,
+    icon: User, // Changed from Home to User icon to represent applied jobs
   },
-
   {
     label: "About",
     link: "/about",
