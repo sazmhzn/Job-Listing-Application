@@ -3,9 +3,10 @@ import { JobCard } from "@/components/common/CustomCard";
 import CustomSearch from "@/components/common/CustomSearch";
 import { fetchJobs } from "@/services/jobsApi";
 import { Button } from "@/components/ui/button";
+import { JobData } from "./JobDetail";
 
 const Jobs = () => {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<JobData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -15,7 +16,7 @@ const Jobs = () => {
     const getJobs = async () => {
       try {
         const data = await fetchJobs();
-        setJobs(data); // Ensure jobs is an array
+        setJobs(Array.isArray(data) ? data : []); // Ensure jobs is an array
       } catch (err) {
         setError("Failed to load jobs. Please try again.");
         console.error(err);
