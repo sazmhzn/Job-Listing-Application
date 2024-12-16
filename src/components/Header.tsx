@@ -1,8 +1,6 @@
 import { memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-
 import useResponsive from "@/hooks/useResponsive";
-import { useFavorites } from "@/context/FavoritesContext";
 import { menuItems } from "@/utils/menuItems";
 
 import {
@@ -73,7 +71,6 @@ const MobileMenu = memo(() => (
 
 const Header = () => {
   const device = useResponsive();
-  const { favorites } = useFavorites();
 
   // Memoize menu rendering to prevent unnecessary re-renders
   const renderMenu = useMemo(() => {

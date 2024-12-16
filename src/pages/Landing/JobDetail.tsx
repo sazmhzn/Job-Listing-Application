@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchJobs } from "@/services/jobsApi";
+import { fetchJobById, JobData } from "@/services/jobsApi";
 import { useFavorites } from "@/context/FavoritesContext";
 import { CaseLower, Heart } from "lucide-react";
 
@@ -8,9 +8,9 @@ import JobForm from "../../components/JobForm";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
 
 const JobDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>(); // Extract `jobId` from URL
 
-  const [job, setJob] = useState(null);
+  const [job, setJob] = useState<JobData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -18,14 +18,12 @@ const JobDetail = () => {
 
   useEffect(() => {
     const getJobDetails = async () => {
+      setLoading(true);
       try {
-        const jobs = await fetchJobs();
-        const selectedJob = jobs.find((job) => job.id === id);
-        if (selectedJob) {
-          setJob(selectedJob);
-        } else {
-          setError("Job not found");
-        }
+        if (!id) return;
+
+        const jobData = await fetchJobById(id);
+        setJob(jobData);
       } catch (err) {
         console.error("Error fetching job details:", err);
         setError("Failed to load job details");

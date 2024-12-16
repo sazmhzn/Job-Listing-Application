@@ -3,11 +3,14 @@ import axios from "axios";
 // API base URL from environment variables
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-interface JobData {
+export interface JobData {
   title: string;
   description: string;
   company: string;
   location: string;
+  jobType?: string;
+  salaryRange?: string;
+  logo?: string;
 }
 
 export interface JobApplication {
@@ -61,6 +64,21 @@ export const fetchJobs = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching jobs:", error);
+    throw error;
+  }
+};
+
+/**
+ * Fetch job details by ID
+ * @param jobId - The ID of the job to fetch
+ * @returns The job details
+ */
+export const fetchJobById = async (jobId: string) => {
+  try {
+    const response = await api.get(`jobs/${jobId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching job with ID ${jobId}:`, error);
     throw error;
   }
 };
