@@ -26,6 +26,13 @@ const Jobs = () => {
     getJobs();
   }, []);
 
+  const saveToFavorites = () => {
+    if (job) {
+      addFavorite({ title: job.title, company: job.company });
+      alert("Job added to favorites!");
+    }
+  };
+
   // Calculate current jobs for the current page
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;

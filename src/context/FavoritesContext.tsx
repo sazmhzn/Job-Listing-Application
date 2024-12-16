@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { useGenericToast } from "@/hooks/useNotification";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 // Define a type for favorite jobs
 interface FavoriteJob {
+  id: string;
   title: string;
   company: string;
 }
@@ -20,6 +22,9 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
 
 // Provider component
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
+  const { showSuccessToast, showErrorToast, showWarningToast, showToast } =
+    useGenericToast();
+
   const [favorites, setFavorites] = useState<FavoriteJob[]>([]);
 
   const addFavorite = (job: FavoriteJob) => {
@@ -27,11 +32,21 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFavorite = (index: number) => {
-    setFavorites((prev) => prev.filter((_, i) => i !== index));
+    setFavorites((prev) =>
+      prev.filter((item, i) => {
+        i !== index;
+        showErrorToast(
+          "Removed From Favorites",
+          `${item.title} has been added to your favorites`
+        );
+      })
+    );
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favorites, addFavorite, removeFavorite }}
+    >
       {children}
     </FavoritesContext.Provider>
   );

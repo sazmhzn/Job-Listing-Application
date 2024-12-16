@@ -1,23 +1,5 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  FormField,
-} from "@/components/ui/form"; // Replace with your custom form components
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   NewRecentJobCards,
   RecentJobCards,
@@ -69,73 +51,12 @@ const jobs = [
   // Add more job objects as needed
 ];
 
-const JobSearchSchema = z.object({
-  keyword: z.string().min(1, "Company name is required"),
-  industry: z.enum(["IT", "Financial", "MArkting"]),
-  location: z.string().min(1, "Location is required"),
-});
-
 const Home = () => {
-
-    const [jobs, setJobs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    const jobsPerPage = 8;
-  
-    useEffect(() => {
-      const getJobs = async () => {
-        try {
-          const data = await fetchJobs();
-          setJobs(Array.isArray(data) ? data : []); // Ensure jobs is an array
-        } catch (err) {
-          setError("Failed to load jobs. Please try again.");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      getJobs();
-    }, []);
-  
-    // Calculate current jobs for the current page
-    const indexOfLastJob = currentPage * jobsPerPage;
-    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-    const currentJobs = Array.isArray(jobs) ? jobs.slice(indexOfFirstJob, indexOfLastJob) : [];
-  
-    // Handle pagination
-    const totalPages = Math.ceil(jobs.length / jobsPerPage);
-  
-    const handleNext = () => {
-      if (currentPage < totalPages) {
-        setCurrentPage(currentPage + 1);
-      }
-    };
-  
-    const handlePrevious = () => {
-      if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-      }
-    };
-
-  const form = useForm<z.infer<typeof JobSearchSchema>>({
-    resolver: zodResolver(JobSearchSchema),
-    defaultValues: {
-      keyword: "",
-      industry: "IT",
-      location: "",
-    },
-  });
-
-  const onSubmit = (values: z.infer<typeof JobSearchSchema>) => {
-    console.log("Form submitted:", { ...values });
-  };
   return (
     <>
       <section className="bg-gray-100 relative min-h-[80vh] overflow-hidden flex items-center justify-center">
-        <div className=" px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl ">
-          <div className="flex">
+        <div className=" px-4 mx-auto sm:px-6 bg-yellow-400 lg:px-8 max-w-7xl ">
+          <div className="flex ">
             <div className="md:text-left">
               <div className="space-y-4">
                 <h2 className="text-5xl font-bold leading-tight inline">
@@ -194,52 +115,7 @@ const Home = () => {
 
         <div className="absolute -z-10 inset-0 hidden bg-gradient-to-r md:block from-black to-transparent" />
       </section>
-      <section className="bg-white pt-8 pb-16">
-              <div className="max-w-7xl mx-auto px-4">
-                {loading ? (
-                  <p className="text-center text-lg">Loading jobs...</p>
-                ) : error ? (
-                  <p className="text-center text-red-500">{error}</p>
-                ) : (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {Array.isArray(currentJobs) && currentJobs.length > 0 ? (
-                        currentJobs.map((job) => <JobCard key={job.id} job={job} />)
-                      ) : (
-                        <p className="text-center text-gray-500">No jobs available.</p>
-                      )}
-                    </div>
       
-                    {/* Pagination Controls */}
-                    <div className="flex justify-between items-center mt-8">
-                      <button
-                        onClick={handlePrevious}
-                        disabled={currentPage === 1}
-                        className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
-                          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                      >
-                        Previous
-                      </button>
-                      <span className="text-sm font-semibold">
-                        Page {currentPage} of {totalPages}
-                      </span>
-                      <button
-                        onClick={handleNext}
-                        disabled={currentPage === totalPages}
-                        className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
-                          currentPage === totalPages
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
-                        }`}
-                      >
-                        Next
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </section>
       <section className="min-h-[10vh] p-4">
         <div className="max-w-7xl p-4 mx-auto">
           <header className="flex justify-between items-center">

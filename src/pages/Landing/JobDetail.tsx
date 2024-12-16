@@ -5,6 +5,7 @@ import { useFavorites } from "@/context/FavoritesContext";
 import { CaseLower, Heart } from "lucide-react";
 
 import JobForm from "../../components/JobForm";
+import { HeartFilledIcon } from "@radix-ui/react-icons";
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const JobDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const { addFavorite } = useFavorites(); // Use the addFavorite function from context
+  const { favorites, addFavorite, removeFavorite } = useFavorites(); // Use the addFavorite function from context
 
   useEffect(() => {
     const getJobDetails = async () => {
@@ -36,9 +37,24 @@ const JobDetail = () => {
     getJobDetails();
   }, [id]);
 
-  const saveToFavorites = () => {
-    if (job) {
-      addFavorite({ title: job.title, company: job.company });
+  const isFavorite = favorites.some(
+    (favorite) =>
+      favorite.title === job.title && favorite.company === job.company
+  );
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      // Remove from favorites
+      removeFavorite(
+        favorites.findIndex(
+          (favorite) =>
+            favorite.title === job.title && favorite.company === job.company
+        )
+      );
+      alert("Job removed from favorites!");
+    } else {
+      // Add to favorites
+      addFavorite({ id: job.id, title: job.title, company: job.company });
       alert("Job added to favorites!");
     }
   };
@@ -76,10 +92,24 @@ const JobDetail = () => {
               </div>
             </div>
             <button
-              onClick={saveToFavorites}
-              className="flex items-center gap-2 px-2 py-2 bg-blue-200 text-slates-600 text-sm font-medium rounded"
+              onClick={toggleFavorite}
+              // onClick={saveToFavorites}
+              className={`flex items-center gap-2 px-2 py-2 text-slates-600 text-sm font-medium rounded-md ${
+                isFavorite
+                  ? "bg-red-200 text-red-600"
+                  : "bg-blue-200 text-blue-600"
+              }`}
             >
-              <Heart className="w-5 h-5" /> Add to Favorites
+              {isFavorite ? (
+                <span className="inline-flex items-center gap-2">
+                  <HeartFilledIcon className="w-5 h-5" /> Added to favourite
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-2">
+                  <Heart className="w-5 h-5" />
+                  Add to favourite
+                </span>
+              )}
             </button>
           </div>
         </div>

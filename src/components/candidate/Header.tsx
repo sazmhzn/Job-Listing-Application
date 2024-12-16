@@ -26,7 +26,7 @@ const Header = () => {
       <nav className="bg-white p-4 dark:bg-gray-900">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           {/* Logo */}
-          <Link to="/home" className="inline-flex gap-1 items-center">
+          <Link to="/" className="inline-flex gap-1 items-center">
             <img
               src="./vite.svg"
               className="h-4 aspect-square sm:h-8"

@@ -1,7 +1,6 @@
 import Footer from "@/components/candidate/Footer";
 import {
   JobCard,
-  JobCardOfTheDay,
   JobCategoryCard,
   TopRecruiter,
 } from "@/components/common/CustomCard";
@@ -21,7 +20,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heading }) => {
     <section className="p-4">
       <div className="flex items-center justify-between max-w-7xl px-0 mx-auto">
         <div className="flex gap-8 md:items-center min-h-[80vh] justify-between">
-          <div className="flex-1 space-y-4">
+          <div className=" flex flex-col items-center sm:justify-center flex-1 space-y-4">
             <div className="relative">
               <h1 className="text-[#05264e] md:text-5xl text-4xl md:font-extrabold font-semibold">
                 The{" "}
@@ -173,7 +172,7 @@ const NewHome = () => {
             <p className="text-center text-red-500">{error}</p>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {Array.isArray(currentJobs) && currentJobs.length > 0 ? (
                   currentJobs.map((job) => <JobCard key={job.id} job={job} />)
                 ) : (

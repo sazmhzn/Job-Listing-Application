@@ -1,71 +1,24 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import { MapPin } from "lucide-react";
-import { StarFilledIcon } from "@radix-ui/react-icons";
+import { Heart } from "lucide-react";
+import { HeartFilledIcon } from "@radix-ui/react-icons";
+import { useFavorites } from "@/context/FavoritesContext";
+import { useToast } from "@/hooks/use-toast";
+import { useGenericToast } from "@/hooks/useNotification";
 
-interface ValueCardProps {
+interface JobCategoryCardProps {
   title: string;
-  iconSrc: string;
-  amount: string;
-  percentageChange: string;
-  isIncrease: boolean;
+  jobsAvailable: number;
+  imageSrc: string;
+  link: string;
 }
-export const ValueCard = ({
-  title,
-  iconSrc,
-  amount,
-  percentageChange,
-  isIncrease,
-}) => {
-  return (
-    <div className="col-lg-6 col-md-12 col-6 mb-4">
-      <div className="card">
-        <div className="card-body">
-          <div className="card-title d-flex align-items-start justify-content-between">
-            <div className="avatar flex-shrink-0">
-              <img src={iconSrc} alt={title} className="rounded" />
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn p-0"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="bx bx-dots-vertical-rounded" />
-              </button>
-              <div className="dropdown-menu dropdown-menu-end">
-                <a className="dropdown-item" href="javascript:void(0);">
-                  View More
-                </a>
-                <a className="dropdown-item" href="javascript:void(0);">
-                  Delete
-                </a>
-              </div>
-            </div>
-          </div>
-          <span className="fw-semibold d-block mb-1">{title}</span>
-          <h3 className="card-title mb-2">{amount}</h3>
-          <small
-            className={`fw-semibold ${
-              isIncrease ? "text-success" : "text-danger"
-            }`}
-          >
-            <i
-              className={`bx ${
-                isIncrease ? "bx-up-arrow-alt" : "bx-down-arrow-alt"
-              }`}
-            />{" "}
-            {percentageChange}
-          </small>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export const JobCategoryCard = ({ title, jobsAvailable, imageSrc, link }) => {
+export const JobCategoryCard = ({
+  title,
+  jobsAvailable,
+  imageSrc,
+  link,
+}: JobCategoryCardProps) => {
   return (
     <div className="flex gap-4 p-2 relative bg-white rounded-xl border border-[#061224]/10">
       <img
@@ -85,6 +38,19 @@ export const JobCategoryCard = ({ title, jobsAvailable, imageSrc, link }) => {
   );
 };
 
+interface JobCardOfTheDayProps {
+  companyName: string;
+  location: string;
+  position: string;
+  jobType: string;
+  postedDate: string;
+  description: string;
+  skills?: string[];
+  salaryInfo?: string;
+  logoSrc?: string;
+  link: string;
+}
+
 export const JobCardOfTheDay = ({
   companyName,
   location,
@@ -96,7 +62,7 @@ export const JobCardOfTheDay = ({
   salaryInfo = "Sign in to view salary",
   logoSrc = "https://via.placeholder.com/52x52",
   link,
-}) => {
+}: JobCardOfTheDayProps) => {
   return (
     <div className="bg-[#f8faff] rounded-lg border border-[#e0e6f7] p-6 flex flex-col gap-4">
       {/* Header Section */}
@@ -168,13 +134,21 @@ export const JobCardOfTheDay = ({
   );
 };
 
+interface TopRecruiterProps {
+  companyName: string;
+  location: string;
+  openings: number;
+  logoSrc: string;
+  rating: number;
+}
+
 export const TopRecruiter = ({
   companyName,
   location,
   openings,
   logoSrc,
   rating,
-}) => {
+}: TopRecruiterProps) => {
   return (
     <div className="bg-white rounded-xl border border-[#061224]/10 p-4 flex flex-col justify-between">
       <div className="flex flex-col items-start gap-2">
@@ -214,72 +188,63 @@ export const TopRecruiter = ({
   );
 };
 
-export const RecruiterCard = ({ recruiter }) => {
-  return (
-    <div className="w-full max-w-xs p-6 bg-white rounded-lg border border-gray-200 flex flex-col items-center gap-2 hover:border-blue-500 hover:shadow-sm">
-      <img
-        src={recruiter.companyLogo}
-        alt={`${recruiter.companyName} logo`}
-        className="w-16 h-16 aspect-square bg-red-200 rounded-lg"
-      />
-      <h2 className="text-lg m-0 font-bold text-[#05264e]">
-        {recruiter.companyName}
-      </h2>
-
-      {/* Rating and Job Openings */}
-      <div className="flex items-center gap-2">
-        <div className="flex">
-          {[...Array(5)].map((_, index) => (
-            <span
-              key={index}
-              className={
-                index < recruiter.rating ? "text-yellow-500" : "text-gray-300"
-              }
-            >
-              <StarFilledIcon />
-            </span>
-          ))}
-        </div>
-        <span className="text-center text-[#a0abb8] text-xs font-medium font-['Plus Jakarta Sans'] leading-[18px]">
-          ({recruiter.rating})
-        </span>
-      </div>
-
-      <div className="flex items-center gap-1 text-[#a0abb8] text-xs font-normal font-['Plus Jakarta Sans'] leading-normal">
-        <MapPin className="w-4 h-4" /> {recruiter.location}
-      </div>
-
-      {recruiter.jobOpenings > 0 ? (
-        <>
-          <div className="w-full flex justify-center">
-            <span className="text-[#05264e] text-lg font-semibold">
-              {recruiter.jobOpenings} Openings
-            </span>
-          </div>
-          <Button className="bg-blue-600 text-white font-semibold py-2 px-4 rounded mt-2">
-            <Link to={recruiter.link} className="text-white font-semibold">
-              View Jobs
-            </Link>
-          </Button>
-        </>
-      ) : (
-        <div className=" py-[13px] px-3 bg-[#e0e6f7] rounded justify-center items-center inline-flex">
-          <div className="grow shrink basis-0 text-center text-[#05264e] text-sm font-semibold font-['Plus Jakarta Sans'] leading-snug">
-            No Open Job
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
 export const JobCard = ({ job }) => {
+  const { toast } = useToast();
+
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
+
+  const isFavorite = favorites.some(
+    (favorite) =>
+      favorite.title === job.title && favorite.company === job.company
+  );
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      // Remove from favorites
+      removeFavorite(
+        favorites.findIndex(
+          (favorite) =>
+            favorite.title === job.title && favorite.company === job.company
+        )
+      );
+      showErrorToast(
+        "Removed From Favorites",
+        `${job.title} has been added to your favorites`
+      );
+    } else {
+      // Add to favorites
+      addFavorite({ id: job.id, title: job.title, company: job.company });
+      showSuccessToast(
+        "Added to Favorites",
+        `${job.title} has been added to your favorites`
+      );
+    }
+  };
+
+  const { showSuccessToast, showErrorToast, showWarningToast, showToast } =
+    useGenericToast();
+
   return (
     <div className="w-full space-y-4 max-w-sm p-6 bg-[#f8faff] rounded-lg border border-[#e0e6f7] flex flex-col gap-2">
       <header>
-        <h1 className="m-0 p-0 text-[#05264e] text-base font-bold font-['Plus Jakarta Sans'] leading-relaxed">
-          {job.title}
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="m-0 p-0 text-[#05264e] text-base font-bold leading-relaxed">
+            {job.title}
+          </h1>
+
+          <button
+            onClick={toggleFavorite}
+            className={`flex items-center gap-2 px-2 py-2 bg-blue-200 text-slates-600 text-sm font-medium rounded-md ${
+              isFavorite ? "bg-red-200" : "bg-blue-200"
+            }`}
+          >
+            {isFavorite ? (
+              <HeartFilledIcon className="w-5 h-5 text-red-500" />
+            ) : (
+              <Heart className="w-5 h-5" />
+            )}
+          </button>
+        </div>
 
         {/* Job Type and CreatedAt Date */}
         <div className="flex gap-4 text-xs text-[#a0abb8] font-medium">

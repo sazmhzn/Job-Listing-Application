@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Heart, Trash2 } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
 import {
@@ -11,12 +10,6 @@ import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const { favorites, removeFavorite } = useFavorites(); // Access context
-  const [isOpen, setIsOpen] = useState(false); // Track popover state
-
-  // Toggle popover visibility
-  const togglePopover = () => {
-    setIsOpen((prev) => !prev);
-  };
 
   return (
     <div className="relative">
@@ -36,16 +29,22 @@ const Favorites = () => {
         <PopoverContent className="w-full">
           <h2 className="text-lg font-bold text-gray-700 mb-2">Favorites</h2>
           {favorites.length > 0 ? (
-            <ul className="space-y-0 ">
+            <ul className="p-0 space-y-0 ">
               {favorites.map((job, index) => (
                 <li
                   key={index}
-                  className="flex bg-red-200 w-full justify-between text-sm text-slate-600"
+                  className="flex gap-12 py-2 m-0 justify-between text-sm "
                 >
-                  <span>
-                    <span className="font-bold">{job.title}</span> at{" "}
-                    {job.company}
-                  </span>
+                  <Link
+                    className="text-slate-600"
+                    to={`/job-details/${job.id}`}
+                  >
+                    <span>
+                      <span className="font-bold">{job.title}</span> at{" "}
+                      {job.company}
+                    </span>
+                  </Link>
+
                   {/* Delete Button */}
                   <button
                     onClick={() => removeFavorite(index)}
