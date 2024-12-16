@@ -87,7 +87,7 @@ const About = () => {
                 {Array.isArray(currentJobs) && currentJobs.length > 0 ? (
                   currentJobs.map((applicationsjobs) => (
                     <div
-                      key={applicationsjobs.id}
+                      key={applicationsjobs.jobId}
                       className="bg-white shadow-md rounded-lg p-4"
                     >
                       <h3 className="text-xl text-blue-600 font-semibold mb-2">
@@ -98,9 +98,11 @@ const About = () => {
                       </p>
                       <p className="text-gray-500 text-sm">
                         Applied on:{" "}
-                        {new Date(
-                          applicationsjobs.createdAt
-                        ).toLocaleDateString()}
+                        {applicationsjobs.createdAt
+                          ? new Date(
+                              applicationsjobs.createdAt
+                            ).toLocaleDateString("en-US")
+                          : "Date not available"}
                       </p>
                     </div>
                   ))

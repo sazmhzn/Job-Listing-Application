@@ -20,6 +20,7 @@ export interface JobApplication {
   resume: Object | File;
   jobId: string;
   jobTitle: string;
+  createdAt?: Date; // Add this line to include 'createdAt'
 }
 
 const api = axios.create({
