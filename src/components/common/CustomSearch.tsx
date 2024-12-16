@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 
 const CustomSearch = () => {
   return (
-    <div className=" bg-white w-full rounded-lg shadow justify-center items-start inline-flex">
+    <div className="w-full  bg-white rounded-lg shadow justify-center items-start inline-flex">
       <form action="/" method="POST" className="w-full p-2">
         <div className="bg-white flex max-sm:flex-col gap-4 rounded items-center justify-between sm:flex-row sm:justify-center">
           <input
