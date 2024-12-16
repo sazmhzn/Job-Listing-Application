@@ -182,7 +182,7 @@ const JobForm = ({ job }: JobFormProps) => {
                     {form.formState.errors.root.message}
                   </div>
                 )}
-                <Button type="submit">
+                <Button type="submit" className="bg-blue-600">
                   {" "}
                   {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>

@@ -231,7 +231,7 @@ export const JobCard = ({ job }: JobCardProps) => {
 
           <Button
             onClick={toggleFavorite}
-            className={`flex items-center gap-2 px-2 py-2  text-slates-600 text-sm font-medium rounded-md ${
+            className={`flex shadow-none items-center gap-2 px-2 py-2  text-slates-600 text-sm font-medium rounded-md ${
               isFavorite
                 ? "bg-red-200 hover:bg-red-300"
                 : "bg-blue-200 hover:bg-blue-300"

@@ -89,7 +89,10 @@ const HeroSection = () => {
           </div>
 
           <div className="flex-1 md:block hidden  relative">
-            <img className="w-1/2 md:block hidden" src="/images/banner-1.png" />
+            <img
+              className="w-full md:block hidden"
+              src="/images/banner-1.png"
+            />
           </div>
         </div>
       </div>

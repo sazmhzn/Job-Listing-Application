@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/sheet";
 
 import Favorites from "@/components/Header/Favorites";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 const DesktopMenu = memo(() => {
   const location = useLocation();
   return (
-    <ul className="lg:flex pl-0 mb-0 items-center lg:gap-x-10 md:hidden">
+    <ul className="flex pl-0 mb-0 items-center gap-10">
       {menuItems.map((item) => {
         const isActive = location.pathname === item.link; // Check if the link is active
         return (
@@ -40,7 +41,9 @@ const DesktopMenu = memo(() => {
 
 const MobileMenu = memo(() => (
   <Sheet>
-    <SheetTrigger>Open</SheetTrigger>
+    <SheetTrigger>
+      <HamburgerMenuIcon />
+    </SheetTrigger>
     <SheetContent className="w-1/2">
       <SheetHeader>
         <SheetDescription>

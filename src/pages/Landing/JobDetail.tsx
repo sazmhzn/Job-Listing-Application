@@ -33,7 +33,6 @@ const JobDetail = () => {
       setLoading(true);
       try {
         if (!id) return;
-
         const jobData = await fetchJobById(id);
         setJob(jobData as JobData); // Assert the type of jobData as JobData
       } catch (err) {
@@ -63,11 +62,9 @@ const JobDetail = () => {
             favorite.title === job.title && favorite.company === job.company
         )
       );
-      alert("Job removed from favorites!");
     } else {
       // Add to favorites
       addFavorite({ id: job.id, title: job.title, company: job.company });
-      alert("Job added to favorites!");
     }
   };
 

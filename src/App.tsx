@@ -8,9 +8,12 @@ import Jobs from "./pages/Landing/Jobs";
 import JobDetail from "./pages/Landing/JobDetail";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import Landing from "./components/LandingLayout";
+import ScrollToTop from "./hooks/ScrollToTop";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
+
       <FavoritesProvider>
         <Routes>
           <Route path="/" element={<Landing />}>
