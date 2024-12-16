@@ -15,7 +15,7 @@ const Jobs = () => {
     const getJobs = async () => {
       try {
         const data = await fetchJobs();
-        setJobs(Array.isArray(data) ? data : []); // Ensure jobs is an array
+        setJobs(data); // Ensure jobs is an array
       } catch (err) {
         setError("Failed to load jobs. Please try again.");
         console.error(err);

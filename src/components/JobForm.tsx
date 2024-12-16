@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { applyJob } from "@/services/jobsApi";
+import { applyJob, JobData } from "@/services/jobsApi";
 
 const fileSizeLimit = 5 * 1024 * 1024; // 5MB
 
@@ -39,7 +39,7 @@ const JobFormSchema = z.object({
   jobTitle: z.string(),
 });
 
-const JobForm = ({ job }) => {
+const JobForm = ({ job }: JobData) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof JobFormSchema>>({

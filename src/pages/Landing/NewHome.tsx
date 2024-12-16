@@ -7,14 +7,10 @@ import Heading from "@/components/common/Heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { jobsData, topRecrutiers } from "@/lib/data";
-import { fetchJobs } from "@/services/jobsApi";
+import { fetchJobs, JobData } from "@/services/jobsApi";
 import { useEffect, useState } from "react";
 
-interface HeroSectionProps {
-  heading: string;
-}
-
-const HeroSection: React.FC<HeroSectionProps> = ({ heading }) => {
+const HeroSection = () => {
   return (
     <section className="p-4">
       <div className="flex items-center justify-between max-w-7xl px-0 mx-auto">
@@ -101,7 +97,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heading }) => {
 };
 
 const NewHome = () => {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<JobData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -147,7 +143,7 @@ const NewHome = () => {
 
   return (
     <>
-      <HeroSection heading="sfa" />
+      <HeroSection />
 
       <section className="bg-white pt-8 pb-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -172,8 +168,8 @@ const NewHome = () => {
           ) : (
             <>
               <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {Array.isArray(currentJobs) && currentJobs.length > 0 ? (
-                  currentJobs.map((job) => <JobCard key={job.id} job={job} />)
+                {currentJobs && currentJobs.length > 0 ? (
+                  currentJobs.map((job, i) => <JobCard key={i} job={job} />)
                 ) : (
                   <p className="text-center text-gray-500">
                     No jobs available.

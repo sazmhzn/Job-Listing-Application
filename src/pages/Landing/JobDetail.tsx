@@ -118,7 +118,7 @@ const JobDetail = () => {
           <div className=" grid grid-col-1 md:grid-cols-[1fr_500px] gap-6">
             <div>
               <h4>Job Description </h4>
-              <p className="text-gray-600">{job.description}</p>
+              <p className="text-gray-600">{job?.description}</p>
             </div>
 
             <aside className="bg-blue-50 rounded-md p-4">
