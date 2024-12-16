@@ -168,7 +168,7 @@ const NewHome = () => {
             <p className="text-center text-red-500">{error}</p>
           ) : (
             <>
-              <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid justify-center content-center items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {currentJobs && currentJobs.length > 0 ? (
                   currentJobs.map((job, i) => <JobCard key={i} job={job} />)
                 ) : (

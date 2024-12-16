@@ -222,7 +222,7 @@ export const JobCard = ({ job }: JobCardProps) => {
   };
 
   return (
-    <div className="w-full space-y-4 max-w-sm p-6 bg-[#f8faff] rounded-lg border border-[#e0e6f7] flex flex-col gap-2">
+    <div className="w-full space-y-4 p-6 bg-[#f8faff] rounded-lg border border-[#e0e6f7] flex flex-col gap-2">
       <header>
         <div className="flex justify-between">
           <h1 className="m-0 p-0 text-[#05264e] text-base font-bold leading-relaxed">
