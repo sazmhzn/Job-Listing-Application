@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { JobCard } from "@/components/common/CustomCard";
 import CustomSearch from "@/components/common/CustomSearch";
 import { fetchJobs } from "@/services/jobsApi";
+import { Button } from "@/components/ui/button";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -81,7 +82,7 @@ const Jobs = () => {
             <p className="text-center text-red-500">{error}</p>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {currentJobs && currentJobs.length > 0 ? (
                   currentJobs.map((job) => <JobCard job={job} />)
                 ) : (
@@ -93,29 +94,29 @@ const Jobs = () => {
 
               {/* Pagination Controls */}
               <div className="flex justify-between items-center mt-8">
-                <button
+                <Button
                   onClick={handlePrevious}
                   disabled={currentPage === 1}
-                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
-                    currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+                  className={`px-4 py-2 bg-[#e0e6f7] font-semibold text-[#3c65f5] hover:text-white rounded ${
+                    currentPage === 1 ? "cursor-not-allowed" : ""
                   }`}
                 >
                   Previous
-                </button>
-                <span className="text-sm font-semibold">
+                </Button>
+                <span className="text-sm text-neutral-400 font-semibold">
                   Page {currentPage} of {totalPages}
                 </span>
-                <button
+                <Button
                   onClick={handleNext}
                   disabled={currentPage === totalPages}
-                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
+                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] hover:text-white rounded ${
                     currentPage === totalPages
-                      ? "opacity-50 cursor-not-allowed"
-                      : ""
+                      ? "pointer-events-none"
+                      : "font-semibold"
                   }`}
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </>
           )}

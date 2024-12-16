@@ -183,29 +183,29 @@ const NewHome = () => {
 
               {/* Pagination Controls */}
               <div className="flex justify-between items-center mt-8">
-                <button
+                <Button
                   onClick={handlePrevious}
                   disabled={currentPage === 1}
-                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
+                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] hover:text-white rounded ${
                     currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
                   Previous
-                </button>
+                </Button>
                 <span className="text-sm font-semibold">
                   Page {currentPage} of {totalPages}
                 </span>
-                <button
+                <Button
                   onClick={handleNext}
                   disabled={currentPage === totalPages}
-                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] rounded ${
+                  className={`px-4 py-2 bg-[#e0e6f7] text-[#3c65f5] hover:text-white rounded ${
                     currentPage === totalPages
                       ? "opacity-50 cursor-not-allowed"
                       : ""
                   }`}
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </>
           )}

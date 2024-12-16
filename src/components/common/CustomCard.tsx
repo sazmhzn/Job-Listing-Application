@@ -229,18 +229,20 @@ export const JobCard = ({ job }: JobCardProps) => {
             {job.title}
           </h1>
 
-          <button
+          <Button
             onClick={toggleFavorite}
-            className={`flex items-center gap-2 px-2 py-2 bg-blue-200 text-slates-600 text-sm font-medium rounded-md ${
-              isFavorite ? "bg-red-200" : "bg-blue-200"
+            className={`flex items-center gap-2 px-2 py-2  text-slates-600 text-sm font-medium rounded-md ${
+              isFavorite
+                ? "bg-red-200 hover:bg-red-300"
+                : "bg-blue-200 hover:bg-blue-300"
             }`}
           >
             {isFavorite ? (
               <HeartFilledIcon className="w-5 h-5 text-red-500" />
             ) : (
-              <Heart className="w-5 h-5" />
+              <Heart className="w-5 h-5 text-blue-500" />
             )}
-          </button>
+          </Button>
         </div>
 
         {/* Job Type and CreatedAt Date */}
@@ -271,7 +273,7 @@ export const JobCard = ({ job }: JobCardProps) => {
       {/* Apply Button */}
       <Button
         asChild
-        className="mt-4 py-2 bg-[#e0e6f7] text-[#3c65f5] text-xs font-semibold rounded w-full"
+        className="mt-4 py-2 bg-[#e0e6f7] text-[#3c65f5] text-xs font-semibold rounded w-full hover:text-white"
       >
         <Link to={`/job-details/${job.id}`}>View Details</Link>
       </Button>
