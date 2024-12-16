@@ -98,7 +98,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="inline-flex gap-1 items-center">
             <img
-              src="./vite.svg"
+              src="./logo.png"
               className="h-4 aspect-square sm:h-8"
               alt="Job Seeker Logo"
             />

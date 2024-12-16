@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
         <div className="flex flex-col items-center">
           <a href="javascript:void(0)">
-            <img src="vite.svg" alt="logo" className="w-16 aspect-square" />
+            <img src="/logo.png" alt="logo" className="w-16 aspect-square" />
           </a>
 
           <ul className="mt-10 flex space-x-5">
