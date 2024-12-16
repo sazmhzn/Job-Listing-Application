@@ -99,7 +99,7 @@ const Header = () => {
           <Link to="/" className="inline-flex gap-1 items-center">
             <img
               src="./logo.png"
-              className="h-4 aspect-square sm:h-8"
+              className="h-16 aspect-square sm:h-12"
               alt="Job Seeker Logo"
             />
             <span className="hidden md:block self-center text-xl font-semibold whitespace-nowrap dark:text-white">

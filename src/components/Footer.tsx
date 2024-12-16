@@ -1,10 +1,14 @@
 const Footer = () => {
   return (
-    <footer className="font-sans tracking-wide bg-neutral-800 px-8 py-12">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
+    <footer className="font-sans tracking-wide bg-neutral-950 px-8 py-12">
+      <div className="grid content-start justify-start grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
         <div className="flex flex-col items-center">
           <a href="javascript:void(0)">
-            <img src="/logo.png" alt="logo" className="w-16 aspect-square" />
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="w-16 aspect-square object-contain bg-transparent"
+            />
           </a>
 
           <ul className="mt-10 flex space-x-5">
