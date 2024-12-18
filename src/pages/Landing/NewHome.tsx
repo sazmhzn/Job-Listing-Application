@@ -285,9 +285,9 @@ const NewHome = () => {
 
       <section className="w-full min-h-screen m mx-auto p-6 flex flex-wrap items-center gap-6">
         <div className="flex items-center justify-between max-w-7xl px-0 mx-auto">
-          <div className="flex w-full items-center justify-between ">
+          <div className="flex md:flex-row flex-col w-full items-center justify-between ">
             {/* Images Container */}
-            <div className="relative w-full md:1/2 flex justify-center items-center">
+            <div className="relative w-full max-sm:mb-2 flex justify-center items-center">
               {/* Main image */}
               <img
                 className="w-[520.8px] bg-red-200 h-[470.05px] rounded-[32px] z-[5]"
@@ -336,7 +336,7 @@ const NewHome = () => {
         </div>
       </section>
 
-      <section className="bg-white py-8">
+      <section className=" bg-white w-full min-h-screen m mx-auto p-6 flex flex-wrap items-center gap-6">
         <div className=" min-h-screen flex  flex-col items-center justify-center max-w-7xl px-0 mx-auto">
           <div className="flex w-full  flex-col items-center justify-between ">
             <div className="space-y-4">

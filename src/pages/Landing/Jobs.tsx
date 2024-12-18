@@ -83,7 +83,7 @@ const Jobs = () => {
             <p className="text-center text-red-500">{error}</p>
           ) : (
             <>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {currentJobs && currentJobs.length > 0 ? (
                   currentJobs.map((job) => <JobCard job={job} />)
                 ) : (
